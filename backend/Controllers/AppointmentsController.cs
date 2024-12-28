@@ -46,9 +46,9 @@ public class AppointmentsController : ControllerBase
     }
 
         [HttpGet("user/{userId}")]
-    public async Task<IActionResult> GetAppointmentsByUserIdAsync(int userId)
+    public async Task<ActionResult<Appointment>> GetAppointmentsByUserIdAsync(int userId)
     {
-        var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId);
+        var appointments = await _appointmentService.GetAppointmentsByPatientAsync(userId);
         if (appointments == null)
         {
             return NotFound("No appointments found for the user.");

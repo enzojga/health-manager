@@ -15,5 +15,5 @@ public class Appointment
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-    public Patient Patient { get; set; }
+    public Patient? Patient { get; set; }
 }

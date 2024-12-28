@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 public class PatientDto
 {
     [Required]
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     [Required]
-    public string Cpf { get; set; }
+    public string Cpf { get; set; } = "";
 
     public int? RoomId { get; set; }
     public int? DoctorId { get; set; }

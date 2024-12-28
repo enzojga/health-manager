@@ -59,4 +59,32 @@ public class PatientController : ControllerBase
         }
         return NoContent();
     }
+
+    [HttpPost("{patientId}/associate-nurse/{nurseId}")]
+    public async Task<ActionResult> AssociateNurseToPatient(int patientId, int nurseId)
+    {
+        try
+        {
+            await _patientService.AssociateNurseToPatientAsync(patientId, nurseId);
+            return Ok("Nurse associated to user successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("{patientId}/associate-doctor/{doctorId}")]
+    public async Task<ActionResult> AssociateDoctorToPatient(int patientId, int doctorId)
+    {
+        try
+        {
+            await _patientService.AssociateDoctorToPatientAsync(patientId, doctorId);
+            return Ok("Doctor associated to user successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

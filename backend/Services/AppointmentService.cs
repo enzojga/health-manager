@@ -39,9 +39,9 @@ public class AppointmentService
         return true;
     }
 
-    public async Task<IEnumerable<Appointment>> GetAppointmentsByUserIdAsync(int userId)
+    public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientAsync(int userId)
     {
-        return await _appointmentRepository.GetByUserIdAsync(userId);
+        return await _appointmentRepository.GetByPatientIdAsync(userId);
     }
 
 }

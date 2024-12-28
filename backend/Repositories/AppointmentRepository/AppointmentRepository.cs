@@ -40,7 +40,7 @@ public class AppointmentRepository : IAppointmentRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Appointment>> GetByUserIdAsync(int userId)
+    public async Task<IEnumerable<Appointment>> GetByPatientIdAsync(int userId)
     {
         return await _context.Appointments
             .Where(a => a.UserId == userId)

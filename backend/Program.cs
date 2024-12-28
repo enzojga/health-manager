@@ -6,8 +6,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<MyDbContext>();
-builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
 builder.Services.AddScoped<WorkerService>();
+builder.Services.AddScoped<RoomService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IWorkerRepository, WorkerRepository>(); // Register IWorkerRepository
 
 var app = builder.Build();
 

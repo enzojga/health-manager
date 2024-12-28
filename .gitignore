@@ -1,0 +1,54 @@
+# Geral
+.DS_Store
+Thumbs.db
+
+# Node.js / Angular
+node_modules/
+dist/
+.tmp/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+angular.json
+*.log
+
+# Configuração de IDEs/Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Diretórios e arquivos do sistema
+*.log
+*.env
+*.bak
+
+# .NET
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.app
+*.cache
+*.lib
+*.so
+*.dylib
+*.nupkg
+*.snupkg
+*.userosscache
+*.suo
+*.user
+*.lock.json
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Publicação em .NET
+wwwroot/
+logs/

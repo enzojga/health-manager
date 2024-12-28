@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241228173632_Patient")]
+    partial class Patient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -111,7 +114,7 @@ namespace backend.Migrations
                         .HasForeignKey("NurseId");
 
                     b.HasOne("Room", "Room")
-                        .WithMany("Patients")
+                        .WithMany()
                         .HasForeignKey("RoomId");
 
                     b.Navigation("Doctor");
@@ -119,11 +122,6 @@ namespace backend.Migrations
                     b.Navigation("Nurse");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("Room", b =>
-                {
-                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

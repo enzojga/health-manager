@@ -8,12 +8,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<MyDbContext>();
 builder.Services.AddScoped<WorkerService>();
 builder.Services.AddScoped<RoomService>();
+builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-builder.Services.AddScoped<IWorkerRepository, WorkerRepository>(); // Register IWorkerRepository
+builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

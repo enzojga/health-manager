@@ -2,7 +2,7 @@ public class PatientService
 {
     private readonly IPatientRepository _patientRepository;
 
-    public PatientService(IPatientRepository patientRepository)
+    public PatientService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository)
     {
         _patientRepository = patientRepository;
     }
@@ -48,12 +48,20 @@ public class PatientService
         patient.RoomId = patientDto.RoomId;
         patient.DoctorId = patientDto.DoctorId;
         patient.NurseId = patientDto.NurseId;
+        patient.UpdatedAt = DateTime.Now;
 
         return await _patientRepository.UpdateAsync(patient);
     }
 
     public async Task<bool> DeletePatientAsync(int id)
     {
-        return await _patientRepository.DeleteAsync(id);
+        var patient = await _patientRepository.GetByIdAsync(id);
+        if (patient == null)
+        {
+            return false;
+        }
+
+        await _patientRepository.DeleteAsync(patient);
+        return true;
     }
 }

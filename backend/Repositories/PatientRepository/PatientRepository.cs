@@ -35,15 +35,9 @@ public class PatientRepository : IPatientRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task DeleteAsync(Patient patient)
     {
-        var patient = await _context.Patients.FindAsync(id);
-        if (patient == null)
-        {
-            return false;
-        }
-
         _context.Patients.Remove(patient);
-        return await _context.SaveChangesAsync() > 0;
+        await _context.SaveChangesAsync();
     }
 }

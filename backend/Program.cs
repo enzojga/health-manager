@@ -9,9 +9,11 @@ builder.Services.AddDbContext<MyDbContext>();
 builder.Services.AddScoped<WorkerService>();
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<PatientService>();
+builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 var app = builder.Build();
 

@@ -9,6 +9,13 @@ public class AppointmentService
 
     public async Task<Appointment> AddAppointmentAsync(AppointmentDto appointmentDto)
     {
+        var appointmentStarted = await _appointmentRepository.GetLastByPatiantId(appointmentDto.UserId);
+
+        if(appointmentStarted != null && !appointmentStarted.Finished)
+        {
+            return null;
+        }
+        
         var appointment = new Appointment
         {
             UserId = appointmentDto.UserId,

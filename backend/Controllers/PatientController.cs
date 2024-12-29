@@ -102,7 +102,7 @@ public class PatientController : ControllerBase
         }
     }
 
-    [HttpPut("{patientId}/finish-appointment")]
+    [HttpDelete("{patientId}/finish-appointment")]
     public async Task<ActionResult> FinishPatientAppointment(int patientId)
     {
         try

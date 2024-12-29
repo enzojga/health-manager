@@ -24,9 +24,8 @@ public class AppointmentRepository : IAppointmentRepository
     public async Task<Appointment> GetLastByPatiantId(int id)
     {
         return await _context.Appointments
-            .Include(a => a.Patient)
-            .Where(a => a.UserId == id)
             .OrderByDescending(a => a.CreatedAt)
+            .Where(a => a.UserId == id)
             .FirstOrDefaultAsync();
     }
 

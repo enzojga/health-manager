@@ -21,6 +21,15 @@ public class AppointmentRepository : IAppointmentRepository
         return await _context.Appointments.FindAsync(id);
     }
 
+    public async Task<Appointment> GetLastByPatiantId(int id)
+    {
+        return await _context.Appointments
+            .Include(a => a.Patient)
+            .Where(a => a.UserId == id)
+            .OrderByDescending(a => a.CreatedAt)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<Appointment> AddAsync(Appointment appointment)
     {
         _context.Appointments.Add(appointment);
@@ -44,6 +53,14 @@ public class AppointmentRepository : IAppointmentRepository
     {
         return await _context.Appointments
             .Where(a => a.UserId == userId)
+            .Include(a => a.Patient)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Appointment>> GetNotFinishedAppointmentsAsync()
+    {
+        return await _context.Appointments
+            .Where(a => !a.Finished)
             .Include(a => a.Patient)
             .ToListAsync();
     }

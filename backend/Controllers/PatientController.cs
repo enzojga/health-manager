@@ -60,7 +60,7 @@ public class PatientController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{patientId}/associate-nurse/{nurseId}")]
+    [HttpPut("{patientId}/associate-nurse/{nurseId}")]
     public async Task<ActionResult> AssociateNurseToPatient(int patientId, int nurseId)
     {
         try
@@ -74,7 +74,7 @@ public class PatientController : ControllerBase
         }
     }
 
-    [HttpPost("{patientId}/associate-doctor/{doctorId}")]
+    [HttpPut("{patientId}/associate-doctor/{doctorId}")]
     public async Task<ActionResult> AssociateDoctorToPatient(int patientId, int doctorId)
     {
         try
@@ -87,4 +87,33 @@ public class PatientController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPut("{patientId}/associate-room/{roomId}")]
+    public async Task<ActionResult> AssociateRoomToPatient(int patientId, int roomId)
+    {
+        try
+        {
+            await _patientService.AssociateRoomToPatientAsync(patientId, roomId);
+            return Ok("Room associated to user successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut("{patientId}/finish-appointment")]
+    public async Task<ActionResult> FinishPatientAppointment(int patientId)
+    {
+        try
+        {
+            await _patientService.FinishPatientAppointmentAsync(patientId);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
 }

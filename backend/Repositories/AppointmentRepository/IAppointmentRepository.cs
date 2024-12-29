@@ -6,4 +6,6 @@ public interface IAppointmentRepository
     Task<bool> UpdateAsync(Appointment appointment);
     Task DeleteAsync(Appointment appointment);
     Task<IEnumerable<Appointment>> GetByPatientIdAsync(int userId);
+    Task<Appointment> GetLastByPatiantId(int id);
+    Task<IEnumerable<Appointment>> GetNotFinishedAppointmentsAsync();
 }

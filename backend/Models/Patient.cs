@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 public class Patient
 {
@@ -15,7 +16,8 @@ public class Patient
     public int? NurseId { get; set; }
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
-
+    
+    [JsonIgnore]
     public Room? Room { get; set; }
     public Worker? Doctor { get; set; }
     public Worker? Nurse { get; set; }

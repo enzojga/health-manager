@@ -11,12 +11,16 @@ public class RoomRepository : IRoomRepository
 
     public async Task<IEnumerable<Room>> GetAllAsync()
     {
-        return await _context.Rooms.ToListAsync();
+        return await _context.Rooms
+        .Include(room => room.Patients)
+        .ToListAsync();
     }
 
     public async Task<Room> GetByIdAsync(int id)
     {
-        return await _context.Rooms.FindAsync(id);
+        return await _context.Rooms
+        .Include(room => room.Patients)
+        .FirstAsync(room => room.Id == id);
     }
 
     public async Task<Room> AddAsync(Room room)

@@ -44,4 +44,34 @@ public class AppointmentService
         return await _appointmentRepository.GetByPatientIdAsync(userId);
     }
 
+    public async Task<IEnumerable<Appointment>> GetAppointmentByPatientAsync(int userId)
+    {
+        return await _appointmentRepository.GetByPatientIdAsync(userId);
+    }
+
+    public async Task<Appointment> FinishAppointmentAsync(int id)
+    {
+        var appointment = await _appointmentRepository.GetByIdAsync(id);
+        if (appointment == null)
+        {
+            return null;
+        }
+
+        appointment.Finished = true;
+        appointment.UpdatedAt = DateTime.Now;
+
+        await _appointmentRepository.UpdateAsync(appointment);
+        return appointment;
+    }
+
+    public async Task<Appointment> GetLastAppointmentByPatientAsync(int userId)
+    {
+        return await _appointmentRepository.GetLastByPatiantId(userId);
+    }
+
+    public async Task<IEnumerable<Appointment>> GetNotFinishedAppointmentsAsync()
+    {
+        return await _appointmentRepository.GetNotFinishedAppointmentsAsync();
+    }
+    
 }

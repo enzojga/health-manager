@@ -45,7 +45,7 @@ public class AppointmentsController : ControllerBase
         return NoContent();
     }
 
-        [HttpGet("user/{userId}")]
+    [HttpGet("user/{userId}")]
     public async Task<ActionResult<Appointment>> GetAppointmentsByUserIdAsync(int userId)
     {
         var appointments = await _appointmentService.GetAppointmentsByPatientAsync(userId);
@@ -55,4 +55,11 @@ public class AppointmentsController : ControllerBase
         }
         return Ok(appointments);
     }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Appointment>>> GetNotFinishedAppointments()
+    {
+        var appointments = await _appointmentService.GetNotFinishedAppointmentsAsync();
+        return Ok(appointments);
+    }
+
 }

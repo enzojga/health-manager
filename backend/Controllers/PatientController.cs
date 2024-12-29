@@ -108,7 +108,7 @@ public class PatientController : ControllerBase
         try
         {
             await _patientService.FinishPatientAppointmentAsync(patientId);
-            return Ok();
+            return NoContent();
         }
         catch (Exception ex)
         {

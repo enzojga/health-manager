@@ -1,2 +1,18 @@
-<div class="sidenav" style="background-color: red; width: 30px; height: 30px;">
+<div class="sidenav flex-collum">
+  <button class="sidenav-button flex-collum" routerLink="/" [ngClass]="{'sidenav-button-selected': currentUrl === '/'}">
+    <mat-icon>person</mat-icon>
+    <h3>Pacientes</h3>
+  </button>
+  <button class="sidenav-button flex-collum" routerLink="/triagem" [ngClass]="{'sidenav-button-selected': currentUrl === '/triagem'}">
+    <mat-icon>emergency</mat-icon>
+    <h3>Triagem</h3>
+  </button>
+  <button class="sidenav-button flex-collum" routerLink="/check-in" [ngClass]="{'sidenav-button-selected': currentUrl === '/check-in'}">
+    <mat-icon>healing</mat-icon>
+    <h3>Check-in</h3>
+  </button>
+  <button class="sidenav-button flex-collum" routerLink="/enfermaria" [ngClass]="{'sidenav-button-selected': currentUrl === '/enfermaria'}">
+    <mat-icon>home_health</mat-icon>
+    <h3>Enfermaria</h3>
+  </button>
 </div>

@@ -1,0 +1,39 @@
+.sidenav {
+    height: 100%;
+    width: 100%;
+    border-right: solid black 1px;
+    padding: 8px;
+    display: flex;
+}
+
+.sidenav-button {
+    width: 100%;
+    height: 10%;
+    border-radius: 4px;
+    mat-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 35px;
+    }
+}
+
+.sidenav-button:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.sidenav-button-selected {
+    background-color: #EDF5F6;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.flex-collum {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+button {
+    all: unset;
+}

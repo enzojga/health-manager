@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonCardComponent } from "../../../shared/person-card/person-card.component";
+import { HttpService } from '../../../services/http.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-patients',
@@ -9,10 +11,16 @@ import { PersonCardComponent } from "../../../shared/person-card/person-card.com
 })
 export class PatientsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
-    console.log('iniciei')
+    this.getPatiens();
+  }
+
+  getPatiens() {
+    this.httpService.genericGet("Patient").subscribe(res => {
+      console.log(res)
+    })
   }
 
 }

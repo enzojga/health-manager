@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonCardComponent } from "../../../shared/person-card/person-card.component";
 import { HttpService } from '../../../services/http.service';
-import { HttpClient } from '@angular/common/http';
+import { Appointment, Patient } from '../../interfaces/external-interfaces';
 
 @Component({
   selector: 'app-patients',
@@ -11,16 +11,30 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PatientsComponent implements OnInit {
 
-  constructor(private httpService: HttpService) { }
+  appointments: Appointment[] = [];
+
+  constructor(private httpService: HttpService) {}
 
   ngOnInit() {
     this.getPatiens();
   }
 
   getPatiens() {
-    this.httpService.genericGet("Patient").subscribe(res => {
-      console.log(res)
+    this.httpService.genericGet<Appointment[]>("appointments").subscribe((res: Appointment[]) => {
+      this.appointments = res;
     })
   }
 
+  getStatus(patient: Patient) {
+    if(patient.roomId) {
+      return "Internado";
+    }
+    if(patient.doctorId) {
+      return "Check-in";
+    }
+    if(patient.nurseId) {
+      return "Triagem";
+    }
+    return "Aguardando";
+  }
 }

@@ -13,3 +13,7 @@ h3 {
 h2 {
     all: unset
 }
+
+p {
+    all: unset;
+}

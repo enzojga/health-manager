@@ -1,4 +1,14 @@
 <div class="patients">
   <h2>Pacientes</h2>
+  <div class="cards-container">
+    @for (item of appointments; track $index) {
+      <app-person-card
+        [name]="item.patient.name"
+        [status]="getStatus(item.patient)"
+        [appointmentStarted]="item.createdAt"
+        ocupation='Paciente'
+      >
+      </app-person-card>
+    }
+  </div>
 </div>
-<app-person-card></app-person-card>

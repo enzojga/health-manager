@@ -116,12 +116,6 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PatientAsDoctorId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PatientAsNurseId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
@@ -129,10 +123,6 @@ namespace backend.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientAsDoctorId");
-
-                    b.HasIndex("PatientAsNurseId");
 
                     b.ToTable("Workers");
                 });
@@ -151,12 +141,12 @@ namespace backend.Migrations
             modelBuilder.Entity("Patient", b =>
                 {
                     b.HasOne("Worker", "Doctor")
-                        .WithOne()
+                        .WithOne("PatientAsDoctor")
                         .HasForeignKey("Patient", "DoctorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Worker", "Nurse")
-                        .WithOne()
+                        .WithOne("PatientAsNurse")
                         .HasForeignKey("Patient", "NurseId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -171,24 +161,16 @@ namespace backend.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Worker", b =>
-                {
-                    b.HasOne("Patient", "PatientAsDoctor")
-                        .WithMany()
-                        .HasForeignKey("PatientAsDoctorId");
-
-                    b.HasOne("Patient", "PatientAsNurse")
-                        .WithMany()
-                        .HasForeignKey("PatientAsNurseId");
-
-                    b.Navigation("PatientAsDoctor");
-
-                    b.Navigation("PatientAsNurse");
-                });
-
             modelBuilder.Entity("Room", b =>
                 {
                     b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("Worker", b =>
+                {
+                    b.Navigation("PatientAsDoctor");
+
+                    b.Navigation("PatientAsNurse");
                 });
 #pragma warning restore 612, 618
         }

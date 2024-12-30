@@ -40,9 +40,13 @@ export class CreateModalComponent implements OnInit {
         name: ['', [Validators.required, Validators.minLength(3)]],
         cpf: ['', Validators.required],
       });
-    } else {
+    } else if(!data.isRoom) {
       this.modalFrom = this.formBuilder.group({
         name: ['', [Validators.required, Validators.minLength(3)]],
+      });
+    } else {
+      this.modalFrom = this.formBuilder.group({
+        capacity: [null, [Validators.required, Validators.min(1)]],
       });
     }
   }

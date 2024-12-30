@@ -1,3 +1,20 @@
-<p>
-  rooms works!
-</p>
+<div class="quartos">
+  <div class="actions">
+    <h2>Quartos</h2>
+    <button
+      mat-icon-button
+      matTooltip="Adicionar quarto"
+      (click)="handleCreateRoom()"
+    >
+    <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="cards-container">
+    @for (item of rooms; track $index) {
+    <div class="card-container" [ngClass]="{'full': item.patients.length === item.capacity}">
+      <h3>Quarto {{item.id}}</h3>
+      <p>Capacidade: {{item.patients.length}}/{{item.capacity}}</p>
+    </div>
+    }
+  </div>
+</div>

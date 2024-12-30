@@ -48,6 +48,7 @@ export class CheckInComponent implements OnInit {
       height: '237px',
       data: {
         isPatient: false,
+        isRoom: false,
         title: "Cadastrar médico"
       }
     });

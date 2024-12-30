@@ -14,13 +14,13 @@ import { CreateModalComponent } from '../../../shared/create-modal/create-modal.
   selector: 'app-nurses',
   templateUrl: './nurses.component.html',
   styleUrls: ['./nurses.component.css'],
-    imports: [
-      PersonCardComponent,
-      MatIconModule,
-      MatMenuModule,
-      MatTooltipModule,
-      MatButtonModule
-    ],
+  imports: [
+    PersonCardComponent,
+    MatIconModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatButtonModule
+  ],
   
 })
 export class NursesComponent implements OnInit {
@@ -34,10 +34,10 @@ export class NursesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAppointments();
+    this.getNurses();
   }
 
-  getAppointments() {
+  getNurses() {
     this.httpService.genericGet<Workers[]>("worker?type=nurse").subscribe((res: Workers[]) => {
       this.nurses = res;
     })
@@ -49,6 +49,7 @@ export class NursesComponent implements OnInit {
       height: '237px',
       data: {
         isPatient: false,
+        isRoom: false,
         title: "Cadastrar enfermeiro"
       }
     });
@@ -67,7 +68,7 @@ export class NursesComponent implements OnInit {
     }
     this.httpService.genericPost<Workers>("worker", body).subscribe((res: Workers) => {
       this.toastr.success('Enfermeiro cadastrado com sucesso.', 'Sucesso');
-      this.getAppointments();
+      this.getNurses();
     },
     (err) => {
       this.toastr.error('Algo deu errado ao cadastrar enfermeiro.', 'Tente novamente');

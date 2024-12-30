@@ -70,6 +70,7 @@ export class PatientsComponent implements OnInit {
       height: '237px',
       data: {
         isPatient: true,
+        isRoom: false,
         title: "Cadastrar paciente"
       }
     });

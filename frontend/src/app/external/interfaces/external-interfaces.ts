@@ -38,11 +38,24 @@ export interface PatientDTO {
 
 export interface CreateModalData {
   title: string,
-  isPatient: boolean
+  isPatient: boolean,
+  isRoom: boolean
 }
 
 export interface SelectModalData {
   title: string,
   options: string[],
   placeholder: string
+}
+
+export interface Room {
+  id: number
+  capacity: number
+  createdAt: string
+  updatedAt: string
+  patients: Patient[]
+}
+
+export interface RoomDTO {
+  capacity: number
 }

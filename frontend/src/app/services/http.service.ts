@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,10 @@ export class HttpService {
   private readonly apiUrl: string = "http://localhost:5189/api";
 
   constructor(private readonly http: HttpClient) { }
+
+  private static handleError(error: HttpErrorResponse) {
+    return throwError(error);
+  }
 
   genericGet<T>(endpoint: string, id?: string): Observable<T> {
     if (id) {
@@ -22,4 +26,14 @@ export class HttpService {
         .pipe(map((response: T) => response));
     }
   }
+
+  genericPost<T>(endpoint: string, data: any): Observable<T> {
+    const url = `${this.apiUrl}/${endpoint}`;
+    return this.http.post<T>(url, data)
+      .pipe(map((response: T) => {
+        return response;
+      }))
+      .pipe(catchError(HttpService.handleError));
+  }
+
 }

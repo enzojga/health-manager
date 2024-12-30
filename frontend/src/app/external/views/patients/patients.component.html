@@ -1,5 +1,18 @@
 <div class="patients">
-  <h2>Pacientes</h2>
+  <div class="actions">
+    <h2>Pacientes</h2>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      matTooltip="Iniciar atendimento"
+    >
+    <mat-icon>add</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Paciente já cadastrado</button>
+      <button (click)="createPaitient()" mat-menu-item>Cadastrar paciente</button>
+    </mat-menu>    
+  </div>
   <div class="cards-container">
     @for (item of appointments; track $index) {
       <app-person-card

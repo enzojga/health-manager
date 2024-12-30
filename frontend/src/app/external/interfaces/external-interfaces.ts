@@ -27,3 +27,16 @@ export interface Appointment {
   updatedAt: string
   patient: Patient
 }
+
+export interface CreateModalData {
+  title: string,
+  isPatient: boolean
+}
+
+export interface PatientDTO {
+  name: string
+  cpf: string
+  roomId?: number
+  doctorId?: number
+  nurseId?: number
+}

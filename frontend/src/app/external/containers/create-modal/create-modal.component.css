@@ -1,0 +1,19 @@
+.dialog-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.actions {
+    display: flex;
+    margin-top: auto;
+    justify-content: space-between;
+    align-items: center;
+}

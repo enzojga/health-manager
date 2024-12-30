@@ -28,15 +28,21 @@ export interface Appointment {
   patient: Patient
 }
 
-export interface CreateModalData {
-  title: string,
-  isPatient: boolean
-}
-
 export interface PatientDTO {
   name: string
   cpf: string
   roomId?: number
   doctorId?: number
   nurseId?: number
+}
+
+export interface CreateModalData {
+  title: string,
+  isPatient: boolean
+}
+
+export interface SelectModalData {
+  title: string,
+  options: string[],
+  placeholder: string
 }

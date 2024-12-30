@@ -1,3 +1,38 @@
-<p>
-  select-modal works!
-</p>
+<div class="dialog-container">
+  <div class="actions">
+    <h2>{{data.title}}</h2>
+    <button
+      mat-icon-button
+      (click)="dialogRef.close()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <form class="form-select">
+    <mat-form-field class="example-full-width">
+      <mat-label>Number</mat-label>
+      <input #input
+             type="text"
+             placeholder="Pick one"
+             matInput
+             required
+             [formControl]="myControl"
+             [matAutocomplete]="auto"
+             (input)="filter()"
+             (focus)="filter()">
+      <mat-autocomplete requireSelection #auto="matAutocomplete">
+        @for (option of filteredOptions; track option) {
+          <mat-option [value]="option">{{option}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    </form>
+    <button
+    mat-flat-button
+    [disabled]="!myControl.valid"
+    (click)="closeModal()"
+  >
+    Iniciar
+  </button>
+</div>

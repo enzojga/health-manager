@@ -157,8 +157,9 @@ public class PatientService
         patient.DoctorId = null;
         patient.RoomId = null;
 
-        await _patientRepository.UpdateAsync(patient);
         await _appointmentService.FinishAppointmentAsync(appointment.Id);
+        await _patientRepository.UpdateAsync(patient);
+
         return patient;
     }
 

@@ -42,8 +42,8 @@ export class HttpService {
       .pipe(map((response: T) => response));
   }
 
-  genericDelete<T>(endpoint: string, id: string): Observable<T> {
-    const url = `${this.apiUrl}/${endpoint}/${id}`;
+  genericDelete<T>(endpoint: string): Observable<T> {
+    const url = `${this.apiUrl}/${endpoint}`;
     return this.http.delete<T>(url)
       .pipe(map((response: T) => response));
   }

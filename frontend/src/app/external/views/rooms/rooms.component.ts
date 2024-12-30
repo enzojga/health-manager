@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonCardComponent } from '../../../shared/person-card/person-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -16,7 +15,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.css'],
   imports: [
-    PersonCardComponent,
     MatIconModule,
     MatMenuModule,
     MatTooltipModule,

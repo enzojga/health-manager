@@ -19,6 +19,8 @@ public class Patient
     
     [JsonIgnore]
     public Room? Room { get; set; }
+    [JsonIgnore]
     public Worker? Doctor { get; set; }
+    [JsonIgnore]
     public Worker? Nurse { get; set; }
 }

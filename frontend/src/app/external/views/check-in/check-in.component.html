@@ -13,7 +13,7 @@
     @for (item of doctors; track $index) {
       <app-person-card
         [name]="item.name"
-        status="Trabalhando"
+        [status]="item.patientAsDoctor ? 'Trabalhando' : 'Aguardando'"
         ocupation='Médico'
       >
       </app-person-card>

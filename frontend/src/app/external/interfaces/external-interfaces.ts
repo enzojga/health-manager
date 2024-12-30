@@ -16,7 +16,9 @@ export interface Workers {
   name: string
   type: "Nurse" | "Doctor"
   createdAt: string
-  updatedAt: string
+  updatedAt: string,
+  patientAsNurse: Patient[],
+  patientAsDoctor: Patient[]
 }
 
 export interface Appointment {

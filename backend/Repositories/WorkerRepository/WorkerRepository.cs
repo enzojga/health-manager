@@ -13,7 +13,8 @@ public class WorkerRepository : IWorkerRepository
     {
         return await _context.Workers
         .Where(w => w.Type == type)
-        .Where(w => !_context.Patients.Any(p => p.DoctorId == w.Id || p.NurseId == w.Id))
+        .Include(w => w.PatientAsDoctor)
+        .Include(w => w.PatientAsNurse)
         .ToListAsync();
     }
 

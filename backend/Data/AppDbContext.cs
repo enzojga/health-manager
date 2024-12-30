@@ -17,17 +17,14 @@ public class MyDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Patient>(entity =>
-        {
-            entity.HasOne(p => p.Doctor)
-                .WithOne()
-                .HasForeignKey<Patient>(p => p.DoctorId)
-                .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Patient>()
+            .HasOne(p => p.Doctor)
+            .WithOne(w => w.PatientAsDoctor)
+            .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(p => p.Nurse)
-                .WithOne()
-                .HasForeignKey<Patient>(p => p.NurseId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
+        modelBuilder.Entity<Patient>()
+            .HasOne(p => p.Nurse)
+            .WithOne(w => w.PatientAsNurse)
+            .OnDelete(DeleteBehavior.Restrict); 
     }
 }

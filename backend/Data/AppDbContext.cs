@@ -1,30 +1,33 @@
+using backend.Models;
 using Microsoft.EntityFrameworkCore;
-
-public class MyDbContext : DbContext
+namespace backend.Data 
 {
-    public required DbSet<Worker> Workers { get; set; }
-    public required DbSet<Room> Rooms { get; set; }
-    public required DbSet<Patient> Patients { get; set; }
-    public required DbSet<Appointment> Appointments { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class MyDbContext : DbContext
     {
-        optionsBuilder.UseSqlite("Data Source=Banco.health-manager");
-        base.OnConfiguring(optionsBuilder);
-    }
+        public required DbSet<Worker> Workers { get; set; }
+        public required DbSet<Room> Rooms { get; set; }
+        public required DbSet<Patient> Patients { get; set; }
+        public required DbSet<Appointment> Appointments { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=Banco.health-manager");
+            base.OnConfiguring(optionsBuilder);
+        }
 
-        modelBuilder.Entity<Patient>()
-            .HasOne(p => p.Doctor)
-            .WithOne(w => w.PatientAsDoctor)
-            .OnDelete(DeleteBehavior.Restrict);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Patient>()
-            .HasOne(p => p.Nurse)
-            .WithOne(w => w.PatientAsNurse)
-            .OnDelete(DeleteBehavior.Restrict); 
+            modelBuilder.Entity<Patient>()
+                .HasOne(p => p.Doctor)
+                .WithOne(w => w.PatientAsDoctor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Patient>()
+                .HasOne(p => p.Nurse)
+                .WithOne(w => w.PatientAsNurse)
+                .OnDelete(DeleteBehavior.Restrict); 
+        }
     }
 }

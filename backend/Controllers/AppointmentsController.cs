@@ -1,65 +1,69 @@
+using backend.DTOS;
+using backend.Models;
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-
-[ApiController]
-[Route("api/[controller]")]
-public class AppointmentsController : ControllerBase
+namespace backend.Controllers
 {
-    private readonly AppointmentService _appointmentService;
-
-    public AppointmentsController(AppointmentService appointmentService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AppointmentsController : ControllerBase
     {
-        _appointmentService = appointmentService;
-    }
+        private readonly AppointmentService _appointmentService;
 
-    [HttpPost]
-    public async Task<IActionResult> AddAppointmentAsync([FromBody] AppointmentDto appointmentDto)
-    {
-        var appointment = await _appointmentService.AddAppointmentAsync(appointmentDto);
-        if (appointment == null)
+        public AppointmentsController(AppointmentService appointmentService)
         {
-            return BadRequest("Unable to add appointment.");
+            _appointmentService = appointmentService;
         }
-        return Ok(appointment);
-    }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAppointmentAsync(int id, [FromBody] AppointmentDto appointmentDto)
-    {
-        var result = await _appointmentService.UpdateAppointmentAsync(id, appointmentDto);
-        if (!result)
+        [HttpPost]
+        public async Task<IActionResult> AddAppointmentAsync([FromBody] AppointmentDto appointmentDto)
         {
-            return NotFound("Appointment not found.");
+            var appointment = await _appointmentService.AddAppointmentAsync(appointmentDto);
+            if (appointment == null)
+            {
+                return BadRequest("Unable to add appointment.");
+            }
+            return Ok(appointment);
         }
-        return Ok("Appointment updated successfully.");
-    }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAppointmentAsync(int id)
-    {
-        var result = await _appointmentService.DeleteAppointmentAsync(id);
-        if (!result)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAppointmentAsync(int id, [FromBody] AppointmentDto appointmentDto)
         {
-            return NotFound("Appointment not found.");
+            var result = await _appointmentService.UpdateAppointmentAsync(id, appointmentDto);
+            if (!result)
+            {
+                return NotFound("Appointment not found.");
+            }
+            return Ok("Appointment updated successfully.");
         }
-        return NoContent();
-    }
 
-    [HttpGet("user/{userId}")]
-    public async Task<ActionResult<Appointment>> GetAppointmentsByUserIdAsync(int userId)
-    {
-        var appointments = await _appointmentService.GetAppointmentsByPatientAsync(userId);
-        if (appointments == null)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAppointmentAsync(int id)
         {
-            return NotFound("No appointments found for the user.");
+            var result = await _appointmentService.DeleteAppointmentAsync(id);
+            if (!result)
+            {
+                return NotFound("Appointment not found.");
+            }
+            return NoContent();
         }
-        return Ok(appointments);
-    }
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Appointment>>> GetNotFinishedAppointments()
-    {
-        var appointments = await _appointmentService.GetNotFinishedAppointmentsAsync();
-        return Ok(appointments);
-    }
 
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentsByUserIdAsync(int userId)
+        {
+            var appointments = await _appointmentService.GetAppointmentsByPatientAsync(userId);
+            if (appointments == null)
+            {
+                return NotFound("No appointments found for the user.");
+            }
+            return Ok(appointments);
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetNotFinishedAppointments()
+        {
+            var appointments = await _appointmentService.GetNotFinishedAppointmentsAsync();
+            return Ok(appointments);
+        }
+
+    }
 }

@@ -1,61 +1,67 @@
-public class RoomService
-{
-    private readonly IRoomRepository _roomRepository;
+using backend.DTOS;
+using backend.Models;
+using backend.Repositories;
 
-    public RoomService(IRoomRepository roomRepository)
+namespace backend.Services{
+    public class RoomService
     {
-        _roomRepository = roomRepository;
-    }
+        private readonly IRoomRepository _roomRepository;
 
-    public async Task<IEnumerable<Room>> GetAllRoomsAsync()
-    {
-        var rooms = await _roomRepository.GetAllAsync();
-        return rooms;
-    }
-
-    public async Task<Room> GetRoomByIdAsync(int id)
-    {
-        var room = await _roomRepository.GetByIdAsync(id);
-        if (room == null)
+        public RoomService(IRoomRepository roomRepository)
         {
-            return null;
+            _roomRepository = roomRepository;
         }
 
-        return room;
-    }
-
-    public async Task<Room> CreateRoomAsync(RoomDto roomDto)
-    {
-        var room = new Room
+        public async Task<IEnumerable<Room>> GetAllRoomsAsync()
         {
-            Capacity = roomDto.Capacity,
-        };
-
-        return await _roomRepository.AddAsync(room);
-    }
-
-    public async Task<bool> UpdateRoomAsync(int id, RoomDto roomDto)
-    {
-        var room = await _roomRepository.GetByIdAsync(id);
-        if (room == null)
-        {
-            return false;
+            var rooms = await _roomRepository.GetAllAsync();
+            return rooms;
         }
 
-        room.Capacity = roomDto.Capacity;
-
-        await _roomRepository.UpdateAsync(room);
-        return true;
-    }
-
-    public async Task<bool> DeleteRoomAsync(int id)
-    {
-        var room = await _roomRepository.GetByIdAsync(id);
-        if (room == null)
+        public async Task<Room> GetRoomByIdAsync(int id)
         {
-            return false;
+            var room = await _roomRepository.GetByIdAsync(id);
+            if (room == null)
+            {
+                return null;
+            }
+
+            return room;
         }
-        await _roomRepository.DeleteAsync(room);
-        return true;
+
+        public async Task<Room> CreateRoomAsync(RoomDto roomDto)
+        {
+            var room = new Room
+            {
+                Capacity = roomDto.Capacity,
+            };
+
+            return await _roomRepository.AddAsync(room);
+        }
+
+        public async Task<bool> UpdateRoomAsync(int id, RoomDto roomDto)
+        {
+            var room = await _roomRepository.GetByIdAsync(id);
+            if (room == null)
+            {
+                return false;
+            }
+
+            room.Capacity = roomDto.Capacity;
+
+            await _roomRepository.UpdateAsync(room);
+            return true;
+        }
+
+        public async Task<bool> DeleteRoomAsync(int id)
+        {
+            var room = await _roomRepository.GetByIdAsync(id);
+            if (room == null)
+            {
+                return false;
+            }
+            await _roomRepository.DeleteAsync(room);
+            return true;
+        }
     }
 }

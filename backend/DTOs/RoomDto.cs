@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-
-public class RoomDto
+namespace backend.DTOS
 {
-    [Required]
-    public int Capacity { get; set; }
+    public class RoomDto
+    {
+        [Required]
+        public int Capacity { get; set; }
+    }
+
 }

@@ -1,4 +1,7 @@
-public class AppointmentDto
+namespace backend.DTOS
 {
-    public int UserId { get; set; }
+    public class AppointmentDto
+    {
+        public int UserId { get; set; }
+    }
 }

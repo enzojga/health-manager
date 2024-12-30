@@ -223,7 +223,7 @@ export class PatientsComponent implements OnInit {
   }
 
   finishAppointment(item: Appointment) {
-    this.httpService.genericDelete(`Patient/${item.id}/finish-appointment`).subscribe((res) => {
+    this.httpService.genericDelete(`Patient/${item.patient.id}/finish-appointment`).subscribe((res) => {
       this.toastr.success('Consulta finalizada com sucesso.', 'Sucesso');
       this.getAppointments();
     });

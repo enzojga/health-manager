@@ -1,6 +1,18 @@
 <div class="card-container">
   <h3>{{name}}</h3>
   <p>{{ocupation}}</p>
+  <div style="display: flex;">
+    @for(icon of icons; track $index){
+      <button
+        class="small-icon-button"
+        mat-icon-button
+        [matTooltip]="icon.tooltip"
+        (click)="handleAction(icon.icon)"
+      >
+        <mat-icon>{{icon.icon}}</mat-icon>
+      </button>
+    }
+  </div>
   <div class="info-container">
     <div class="status" [ngStyle]="{'background-color': statusDictionary[status].background}">
       <div class="circle" [ngStyle]="{'background-color': statusDictionary[status].color}"></div>

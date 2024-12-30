@@ -1,22 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ButtonsCard } from '../../external/interfaces/external-interfaces';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-person-card',
   templateUrl: './person-card.component.html',
   styleUrls: ['./person-card.component.css'],
-  imports: [CommonModule]
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatButtonModule
+  ]
 })
 export class PersonCardComponent implements OnInit {
 
   @Input() name = '';
   @Input() ocupation = '';
-  @Input() status: "Trabalhando" | "Aguardando" | "Triagem" | "Check-in" | "Internado" = 'Aguardando';
+  @Input() status: "Atendendo" | "Aguardando" | "Triagem" | "Check-in" | "Internado" = 'Aguardando';
   @Input() appointmentStarted: string | null = null;
-
+  @Input() icons: ButtonsCard[] = [];
+  @Output() action = new EventEmitter<string>();
 
   statusDictionary = {
-    "Trabalhando":  {
+    "Atendendo":  {
       color: "#FF2E1F",
       background: "#FDF1ED"
     },
@@ -43,4 +53,7 @@ export class PersonCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleAction(action: string) {
+    this.action.emit(action);
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonCardComponent } from "../../../shared/person-card/person-card.component";
 import { HttpService } from '../../../services/http.service';
-import { Appointment, Patient, PatientDTO } from '../../interfaces/external-interfaces';
+import { Appointment, ButtonsCard, Patient, PatientDTO, Room, Workers } from '../../interfaces/external-interfaces';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
@@ -64,9 +64,28 @@ export class PatientsComponent implements OnInit {
     return "Aguardando";
   }
 
+  getIcons(patient: Patient) {
+    const icons: ButtonsCard[] = [];
+    if(patient.roomId) {
+      icons.push({icon: "logout", tooltip: "Liberar paciente"});
+    }
+    if(patient.doctorId) {
+      icons.push({icon: "logout", tooltip: "Liberar paciente"});
+      icons.push({icon: "home_health", tooltip: "Internar paciente"});
+    }
+    if(patient.nurseId) {
+      icons.push({icon: "healing", tooltip: "Enviar para o check-in"});
+    }
+    const awaitng = !patient.roomId && !patient.doctorId && !patient.nurseId;
+    if(awaitng) {
+      icons.push({icon: "emergency", tooltip: "Iniciar atendimento"});
+    }
+    return icons;
+  }
+
   handleCreatePatient() {
     const dialog = this.dialog.open(CreateModalComponent, {
-      width: '476',
+      width: '476px',
       height: '237px',
       data: {
         isPatient: true,
@@ -128,4 +147,85 @@ export class PatientsComponent implements OnInit {
     })
   }
 
+  handleAction(event: string, item: Appointment) {
+    let stage = '';
+    let url = '';
+    let param = '';
+    if(event === 'emergency') {
+      url = 'worker?type=nurse&available=true';
+      stage = 'enfermeiro';
+      param = 'nurse';
+    }
+    if(event === 'healing') {
+      url = 'worker?type=doctor&available=true';
+      stage = 'médico';
+      param = 'doctor';
+    }
+    if(event === 'home_health') {
+      stage = 'quarto';
+      param = 'room';
+      url = 'room';
+    }
+    if(event === 'logout') {
+      this.finishAppointment(item);
+      return;
+    }
+    this.httpService.genericGet<Workers[] | Room[]>(url).subscribe((res: Workers[] | Room[]) => {
+      this.handleGenericSelect(stage, res, item.patient.id, param);
+    })
+    
+  }
+
+  handleGenericSelect(stage: string, reqResponse: Workers[] | Room[], patientId: number, param: string) {
+    let options: string[] = [];
+    if(param === 'room') {
+      options = (reqResponse as Room[]).map(r => r.id.toString());
+    } else {
+      options = (reqResponse as Workers[]).map(w => w.name);
+    }
+    if(options.length === 0) {
+      this.toastr.error(`Sem ${stage}s disponiveis. Tente novamente mais tarde`, 'Tente novamente');
+      return;
+    }
+    const dialog = this.dialog.open(SelectModalComponent, {
+      height: '237px',
+      data: {
+        title: `Selecione um ${stage}`,
+        placeholder: "Selecione um paciente",
+        options
+      }
+    });
+
+    dialog.afterClosed().subscribe((res: string) => {
+      if(res) {
+        let id = null;
+        if(param === 'room') {
+          id = reqResponse.find(r => r.id === Number(res));
+        } else {
+          id = (reqResponse as Workers[]).find(w => w.name === res);
+        }
+        if(!id) {
+          this.toastr.error('Algo deu errado, por favor, tente novamente.', 'Tente novamente');
+          return;
+        }
+        const url = `Patient/${patientId}/associate-${param}/${id.id}`;
+        this.vinclutePatient(url);
+      }
+    });
+  }
+
+  vinclutePatient(url: string) {
+    this.httpService.genericPut(url, {}).subscribe((res) => {
+      console.log(res);
+      this.toastr.success('Paciente vinculado com sucesso.', 'Sucesso');
+      this.getAppointments();
+    });
+  }
+
+  finishAppointment(item: Appointment) {
+    this.httpService.genericDelete(`appointments`, `${item.id}`).subscribe((res) => {
+      this.toastr.success('Consulta finalizada com sucesso.', 'Sucesso');
+      this.getAppointments();
+    });
+  }
 }

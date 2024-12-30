@@ -1,6 +1,6 @@
 public interface IWorkerRepository
 {
-    Task<IEnumerable<Worker>> GetAllAsync(WorkerType? type);
+    Task<IEnumerable<Worker>> GetAllAsync(WorkerType? type, bool? available);
     Task<Worker> GetByIdAsync(int id);
     Task AddAsync(Worker worker);
     Task UpdateAsync(Worker worker);

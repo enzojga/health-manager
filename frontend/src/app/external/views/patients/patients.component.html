@@ -19,6 +19,8 @@
         [name]="item.patient.name"
         [status]="getStatus(item.patient)"
         [appointmentStarted]="item.createdAt"
+        [icons]="getIcons(item.patient)"
+        (action)="handleAction($event, item)"
         ocupation='Paciente'
       >
       </app-person-card>

@@ -61,3 +61,8 @@ export interface Room {
 export interface RoomDTO {
   capacity: number
 }
+
+export interface ButtonsCard {
+  icon: string,
+  tooltip: string
+}

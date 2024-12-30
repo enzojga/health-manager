@@ -35,5 +35,16 @@ export class HttpService {
       }))
       .pipe(catchError(HttpService.handleError));
   }
+  
+  genericPut<T>(endpoint: string, data: any): Observable<T> {
+    const url = `${this.apiUrl}/${endpoint}`;
+    return this.http.put<T>(url, data)
+      .pipe(map((response: T) => response));
+  }
 
+  genericDelete<T>(endpoint: string, id: string): Observable<T> {
+    const url = `${this.apiUrl}/${endpoint}/${id}`;
+    return this.http.delete<T>(url)
+      .pipe(map((response: T) => response));
+  }
 }

@@ -13,13 +13,13 @@ public class WorkerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Worker>>> GetAllWorkers([FromQuery] string type)
+    public async Task<ActionResult<List<Worker>>> GetAllWorkers([FromQuery] string type, [FromQuery] bool? available)
     {
         if (!Enum.TryParse<WorkerType>(type, true, out var workerTypeEnum) || !Enum.IsDefined(typeof(WorkerType), workerTypeEnum))
         {
             return BadRequest();
         }
-        var workers = await _workerService.GetAllWorkersAsync(workerTypeEnum);
+        var workers = await _workerService.GetAllWorkersAsync(workerTypeEnum, available);
         return Ok(workers);
     }
 

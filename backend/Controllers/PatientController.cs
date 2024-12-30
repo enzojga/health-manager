@@ -66,7 +66,7 @@ public class PatientController : ControllerBase
         try
         {
             await _patientService.AssociateNurseToPatientAsync(patientId, nurseId);
-            return Ok("Nurse associated to user successfully");
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -80,7 +80,7 @@ public class PatientController : ControllerBase
         try
         {
             await _patientService.AssociateDoctorToPatientAsync(patientId, doctorId);
-            return Ok("Doctor associated to user successfully");
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -94,7 +94,7 @@ public class PatientController : ControllerBase
         try
         {
             await _patientService.AssociateRoomToPatientAsync(patientId, roomId);
-            return Ok("Room associated to user successfully");
+            return Ok();
         }
         catch (Exception ex)
         {

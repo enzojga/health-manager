@@ -10,7 +10,7 @@ Health manager é uma aplicação full-stack com um front-end escrito em Angular
 
 ## Deploy na AWS
 
-- https://ec2-52-90-40-206.compute-1.amazonaws.com/
+- http://ec2-52-90-40-206.compute-1.amazonaws.com/
 
 ## Como rodar
 ### Requisitos:

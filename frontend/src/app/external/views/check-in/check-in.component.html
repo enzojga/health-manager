@@ -1,3 +1,22 @@
-<p>
-  check-in works!
-</p>
+<div class="doctors">
+  <div class="actions">
+    <h2>Médicos</h2>
+    <button
+      mat-icon-button
+      matTooltip="Adicionar médico(a)"
+      (click)="handleCreateDoctor()"
+    >
+    <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="cards-container">
+    @for (item of doctors; track $index) {
+      <app-person-card
+        [name]="item.name"
+        status="Trabalhando"
+        ocupation='Médico'
+      >
+      </app-person-card>
+    }
+  </div>
+</div>

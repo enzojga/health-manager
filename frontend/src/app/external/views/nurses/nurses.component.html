@@ -1,3 +1,22 @@
-<p>
-  nurses works!
-</p>
+<div class="nurses">
+  <div class="actions">
+    <h2>Enfermeiros</h2>
+    <button
+      mat-icon-button
+      matTooltip="Adicionar enfermeiro(a)"
+      (click)="handleCreateNurse()"
+    >
+    <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="cards-container">
+    @for (item of nurses; track $index) {
+      <app-person-card
+        [name]="item.name"
+        status="Trabalhando"
+        ocupation='Enfermeiro'
+      >
+      </app-person-card>
+    }
+  </div>
+</div>

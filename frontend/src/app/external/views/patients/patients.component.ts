@@ -7,9 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
-import { CreateModalComponent } from '../../containers/create-modal/create-modal.component';
+import { CreateModalComponent } from '../../../shared/create-modal/create-modal.component';
 import { ToastrService } from 'ngx-toastr';
-import { SelectModalComponent } from '../../containers/select-modal/select-modal.component';
+import { SelectModalComponent } from '../../../shared/select-modal/select-modal.component';
 
 @Component({
   selector: 'app-patients',
@@ -64,7 +64,7 @@ export class PatientsComponent implements OnInit {
     return "Aguardando";
   }
 
-  createPaitient() {
+  handleCreatePatient() {
     const dialog = this.dialog.open(CreateModalComponent, {
       width: '476',
       height: '237px',

@@ -9,9 +9,11 @@ public class WorkerRepository : IWorkerRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Worker>> GetAllAsync()
+    public async Task<IEnumerable<Worker>> GetAllAsync(WorkerType? type)
     {
-        return await _context.Workers.ToListAsync();
+        return await _context.Workers
+        .Where(w => w.Type == type)
+        .ToListAsync();
     }
 
     public async Task<Worker> GetByIdAsync(int id)

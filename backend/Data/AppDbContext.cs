@@ -9,7 +9,25 @@ public class MyDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=Banco.helth-manager");
+        optionsBuilder.UseSqlite("Data Source=Banco.health-manager");
         base.OnConfiguring(optionsBuilder);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Patient>(entity =>
+        {
+            entity.HasOne(p => p.Doctor)
+                .WithOne()
+                .HasForeignKey<Patient>(p => p.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(p => p.Nurse)
+                .WithOne()
+                .HasForeignKey<Patient>(p => p.NurseId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
     }
 }

@@ -8,9 +8,9 @@ public class WorkerService
         _workerRepository = workerRepository;
     }
 
-    public async Task<IEnumerable<Worker>> GetAllWorkersAsync()
+    public async Task<IEnumerable<Worker>> GetAllWorkersAsync(WorkerType? type)
     {
-        return await _workerRepository.GetAllAsync();
+        return await _workerRepository.GetAllAsync(type);
     }
 
     public async Task<Worker> GetWorkerByIdAsync(int id)

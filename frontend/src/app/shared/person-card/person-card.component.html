@@ -6,6 +6,8 @@
       <div class="circle" [ngStyle]="{'background-color': statusDictionary[status].color}"></div>
       <p [ngStyle]="{'color': statusDictionary[status].color}">Status: {{status}}</p>
     </div>
-    <p>Início: {{appointmentStarted | date:'dd/MM/yyyy - HH:mm'}}</p>
+    @if(appointmentStarted){ 
+      <p>Início: {{appointmentStarted | date:'dd/MM/yyyy - HH:mm'}}</p>
+    }  
   </div>
 </div>

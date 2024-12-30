@@ -7,10 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateModalComponent } from '../create-modal/create-modal.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CreateModalData, SelectModalData } from '../../interfaces/external-interfaces';
+import { SelectModalData } from '../../external/interfaces/external-interfaces';
 import { MatInputModule } from '@angular/material/input';
-import { map, Observable, startWith } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-select-modal',
@@ -24,8 +22,7 @@ import { AsyncPipe } from '@angular/common';
       FormsModule,
       MatAutocompleteModule,
       ReactiveFormsModule,
-      MatInputModule,
-      AsyncPipe
+      MatInputModule
   ]
 })
 export class SelectModalComponent {

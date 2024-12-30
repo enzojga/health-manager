@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241230015144_WorkerRelation")]
+    partial class WorkerRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -72,11 +75,9 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId")
-                        .IsUnique();
+                    b.HasIndex("DoctorId");
 
-                    b.HasIndex("NurseId")
-                        .IsUnique();
+                    b.HasIndex("NurseId");
 
                     b.HasIndex("RoomId");
 
@@ -116,7 +117,7 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PatientId")
+                    b.Property<int>("PatientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Type")
@@ -146,13 +147,13 @@ namespace backend.Migrations
             modelBuilder.Entity("Patient", b =>
                 {
                     b.HasOne("Worker", "Doctor")
-                        .WithOne()
-                        .HasForeignKey("Patient", "DoctorId")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Worker", "Nurse")
-                        .WithOne()
-                        .HasForeignKey("Patient", "NurseId")
+                        .WithMany()
+                        .HasForeignKey("NurseId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Room", "Room")
@@ -170,7 +171,9 @@ namespace backend.Migrations
                 {
                     b.HasOne("Patient", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Patient");
                 });

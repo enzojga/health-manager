@@ -6,8 +6,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CreateModalData } from '../../interfaces/external-interfaces';
+import { CreateModalData } from '../../external/interfaces/external-interfaces';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-modal',
@@ -20,7 +21,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    NgxMaskDirective
+    NgxMaskDirective,
+    CommonModule
   ],
   providers: [provideNgxMask()],
 })
@@ -35,13 +37,12 @@ export class CreateModalComponent implements OnInit {
   ) {
     if(data.isPatient) {
       this.modalFrom = this.formBuilder.group({
-        name: ['', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(3)]],
         cpf: ['', Validators.required],
       });
     } else {
       this.modalFrom = this.formBuilder.group({
-        name: ['', Validators.required],
-        type: ['', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(3)]],
       });
     }
   }
@@ -51,7 +52,6 @@ export class CreateModalComponent implements OnInit {
 
   closeMoal() {
     const { value } = this.modalFrom;
-    console.log(value);
     this.dialogRef.close(value);
   }
 

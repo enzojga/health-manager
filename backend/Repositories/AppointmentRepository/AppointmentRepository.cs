@@ -60,6 +60,7 @@ public class AppointmentRepository : IAppointmentRepository
     {
         return await _context.Appointments
             .Where(a => !a.Finished)
+            .OrderByDescending(a => a.CreatedAt)
             .Include(a => a.Patient)
             .ToListAsync();
     }

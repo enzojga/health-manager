@@ -7,11 +7,11 @@ export interface Patient {
   nurseId: number | null
   createdAt: string
   updatedAt: string
-  doctor?: Worker
-  nurse?: Worker
+  doctor?: Workers
+  nurse?: Workers
 }
 
-export interface Worker {
+export interface Workers {
   id: number
   name: string
   type: "Nurse" | "Doctor"
